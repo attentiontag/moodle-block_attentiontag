@@ -1,12 +1,34 @@
-define(['jquery', 'core/log', 'block_attentiontag/attention-tag'], function($, log, attentiontag) {
+// define(['jquery', 'core/log', 'block_attentiontag/attention-tag', 'lodash'], function($, log, attentiontag, _) {
+require.config({
+    paths: {
+        lodash: 'https://cdn.jsdelivr.net/npm/lodash/lodash.min' // Or your local path
+    }
+});
+
+define(['jquery', 'core/log', 'lodash'], function($, log, _) {
     'use strict';
 
     /**
      * Floating icon code
      */
     function init() {
-        log.debug('AttentionTag block initialized.');
-        attentiontag.init();
+        console.log('AttentionTag init console.log');
+        log.debug('AttentionTag block before init.');
+//        attentiontag.init();
+
+        // renderAttentionTag('attentiontag-container', { prop1: 'value1', prop2: 'value2' });
+        // console.log('AttentionTag React component initialized.');
+        //
+        //
+        // log.debug('AttentionTag block after initialization');
+
+        // Demonstration: Use Lodash to join an array into a string
+        console.log('Lodash is working:', _.isEmpty({}));
+
+        const sampleArray = ['Hello', 'from', 'Lodash'];
+        const joinedString = _.join(sampleArray, ' ');
+        log.debug('Lodash joined string: ' + joinedString);
+        console.log('Lodash joined string: ' + joinedString);
 
         // Show the chat box initially
         $('.attentiontag-chat-box').fadeIn();
@@ -24,7 +46,7 @@ define(['jquery', 'core/log', 'block_attentiontag/attention-tag'], function($, l
             if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
                 navigator.mediaDevices.getUserMedia({ video: true })
                     .then(function(stream) {
-                        log.debug('Camera access granted.');
+                        log.debug('NEW! - Camera access granted.');
                         stream.getTracks().forEach(track => track.stop()); // Stop the video stream
 
                         // Switch to the "Wake_up" image after permission is granted

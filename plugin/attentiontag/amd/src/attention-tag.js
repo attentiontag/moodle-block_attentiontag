@@ -1,10 +1,9 @@
-import log from 'core/log';
+define(['jquery', 'core/log'], function($, log) {
+    'use strict';
 
-/**
- * Attention tag function in ES6
- */
-function init() {
-    log.debug('function from attention-tag.js');
-}
-
-export default {init};
+    return {
+        init: function() {
+            log.debug('AttentionTag module initialized.');
+        }
+    };
+});
