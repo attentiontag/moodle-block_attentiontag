@@ -24,6 +24,9 @@ $CFG->admin     = 'admin';  // Admin directory
 
 $CFG->directorypermissions = 0777;  // Permissions for created directories
 
+$CFG->debug = (E_ALL | E_STRICT);
+$CFG->debugdisplay = 1;
+
 require_once(__DIR__ . '/lib/setup.php');
 
 // There is no php closing tag in this file,
