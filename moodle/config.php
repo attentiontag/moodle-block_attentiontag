@@ -4,25 +4,28 @@ unset($CFG);
 global $CFG;
 $CFG = new stdClass();
 
-$CFG->dbtype    = 'mariadb';
+$CFG->dbtype    = 'pgsql';  // Set to 'pgsql' for PostgreSQL
 $CFG->dblibrary = 'native';
-$CFG->dbhost    = 'localhost';
-$CFG->dbname    = 'client_slamlab';
-$CFG->dbuser    = 'root';
-$CFG->dbpass    = '';
-$CFG->prefix    = 'mdl_';
+$CFG->dbhost    = 'localhost';  // Default host for PostgreSQL
+$CFG->dbname    = 'moodle';  // Replace with your PostgreSQL database name
+$CFG->dbuser    = 'moodleuser';  // Replace with your PostgreSQL username
+$CFG->dbpass    = 'moodleuser';  // Replace with your PostgreSQL password
+$CFG->prefix    = 'mdl_';  // Table prefix for Moodle
 $CFG->dboptions = array (
-  'dbpersist' => 0,
-  'dbport' => 3307,
-  'dbsocket' => '',
-  'dbcollation' => 'utf8mb4_unicode_ci',
+  'dbpersist' => false,
+  'dbport' => 5432,  // Default PostgreSQL port
+  'dbsocket' => false,
+  'dbcollation' => 'utf8mb4_unicode_ci', // For PostgreSQL, utf8mb4_unicode_ci is not necessary
 );
 
-$CFG->wwwroot   = 'http://localhost/client/slamlab';
-$CFG->dataroot  = 'D:\\php8\\slabdata';
-$CFG->admin     = 'admin';
+$CFG->wwwroot   = 'http://localhost:8081/moodle';  // Moodle site URL
+$CFG->dataroot  = '/Users/arvind/moodledata';  // Replace with the path to your Moodle data directory
+$CFG->admin     = 'admin';  // Admin directory
 
-$CFG->directorypermissions = 0777;
+$CFG->directorypermissions = 0777;  // Permissions for created directories
+
+$CFG->debug = (E_ALL | E_STRICT);
+$CFG->debugdisplay = 1;
 
 require_once(__DIR__ . '/lib/setup.php');
 

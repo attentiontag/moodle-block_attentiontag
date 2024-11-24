@@ -27,15 +27,33 @@ class block_attentiontag extends block_base {
             require(['jquery'], function($) {
                 var iconHtml = $icon_html;
                 $('body').append(iconHtml);  // Append the floating icon to the body.
-                require(['block_attentiontag/floating_icon'], function(floatingIcon) {
-                    floatingIcon.init();
+
+                // Initialize the floating icon logic (Moodle-specific AMD module).
+                require(['block_attentiontag/floating_icon', 'block_attentiontag/main'], function(floatingIcon, main) {
+                    floatingIcon.init(); // Initialize the floating icon module.
+
+                    // Initialize the attentiontag SDK.
+                    main.init();
                 });
             });
 JS;
+
+        // Add inline JavaScript to the page.
         $PAGE->requires->js_amd_inline($js_code);
+
+        // Explicitly load the Moodle-specific AMD module (block_attentiontag/main).
+        $PAGE->requires->js_call_amd('block_attentiontag/main', 'init');
+        // TODO (Arvind): Later, replace the above with the below code with details got from moodle
+        // Corrected: Replaced `{}` with proper JSON encoding.
+        // $PAGE->requires->js_call_amd('block_attentiontag/attentiontag', 'renderAttentionTag', [
+        //    'attentiontag-container',
+        //    json_encode(['prop1' => 'value1', 'prop2' => 'value2'])
+        // ]);
+
     }
 
     public function applicable_formats() {
-        return array('mod' => true,'course-view' => true, 'site-index' => false);
+        // Specify the pages where this block can be added.
+        return array('mod' => true, 'course-view' => true, 'site-index' => false);
     }
 }
