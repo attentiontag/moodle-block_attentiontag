@@ -1,13 +1,13 @@
 // define(['jquery', 'core/log', 'block_attentiontag/attention-tag', 'lodash'], function($, log, attentiontag, _) {
-require.config({
-    paths: {
-        // 'core/log': '/Users/arvind/attentiontag/code/moodle/moodle/lib/amd/build/log.min.js',
-    // Map core/log to the appropriate location
-        lodash: 'https://cdn.jsdelivr.net/npm/lodash/lodash.min' // Or your local path
-    }
-});
+// require.config({
+//     paths: {
+//         // 'core/log': '/Users/arvind/attentiontag/code/moodle/moodle/lib/amd/build/log.min.js',
+//     // Map core/log to the appropriate location
+//         lodash: 'https://cdn.jsdelivr.net/npm/lodash/lodash.min' // Or your local path
+//     }
+// });
 
-define(['jquery', 'core/log', 'lodash'], function($, log, _) {
+define(['jquery', 'core/log'], function($, log) {
     'use strict';
 
     /**
@@ -25,12 +25,12 @@ define(['jquery', 'core/log', 'lodash'], function($, log, _) {
         // log.debug('AttentionTag block after initialization');
 
         // Demonstration: Use Lodash to join an array into a string
-        console.log('Lodash is working:', _.isEmpty({}));
+        // console.log('Lodash is working:', _.isEmpty({}));
 
-        const sampleArray = ['Hello', 'from', 'Lodash'];
-        const joinedString = _.join(sampleArray, ' ');
-        log.debug('Lodash joined string: ' + joinedString);
-        console.log('Lodash joined string: ' + joinedString);
+        // const sampleArray = ['Hello', 'from', 'Lodash'];
+        // const joinedString = _.join(sampleArray, ' ');
+        // log.debug('Lodash joined string: ' + joinedString);
+        // console.log('Lodash joined string: ' + joinedString);
 
         // Show the chat box initially
         $('.attentiontag-chat-box').fadeIn();
