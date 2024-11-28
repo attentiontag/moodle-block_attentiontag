@@ -1,12 +1,3 @@
-// define(['jquery', 'core/log', 'block_attentiontag/attention-tag', 'lodash'], function($, log, attentiontag, _) {
-// require.config({
-//     paths: {
-//         // 'core/log': '/Users/arvind/attentiontag/code/moodle/moodle/lib/amd/build/log.min.js',
-//     // Map core/log to the appropriate location
-//         lodash: 'https://cdn.jsdelivr.net/npm/lodash/lodash.min' // Or your local path
-//     }
-// });
-
 define(['jquery', 'core/log'], function($, log) {
     'use strict';
 
