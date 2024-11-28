@@ -1,6 +1,8 @@
 <?php
 defined('MOODLE_INTERNAL') || die();
 
+global project_id = 1;
+
 class block_attentiontag extends block_base {
 
     public function init() {
@@ -17,7 +19,7 @@ class block_attentiontag extends block_base {
     }
 
     public function get_required_javascript() {
-        global $PAGE, $OUTPUT;
+        global $PAGE, $OUTPUT, $USER, $LESSON;
 
         // Generate the HTML for the floating icon using the Mustache template.
         $icon_html = json_encode($OUTPUT->render_from_template('block_attentiontag/content', []));
@@ -30,10 +32,11 @@ class block_attentiontag extends block_base {
 
                 // Initialize the floating icon logic (Moodle-specific AMD module).
                 require(['block_attentiontag/floating_icon', 'block_attentiontag/main'], function(floatingIcon, main) {
+                    at = new AttentionTag(project_id, viewer_email = $USER->email, $LESSON->name);
                     floatingIcon.init(); // Initialize the floating icon module.
 
                     // Initialize the attentiontag SDK.
-                    main.init();
+                    attentiontag.init();
                 });
             });
 JS;
