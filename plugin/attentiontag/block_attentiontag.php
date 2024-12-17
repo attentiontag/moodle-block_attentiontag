@@ -26,6 +26,7 @@ class block_attentiontag extends block_base {
         // below line gives unknown property of PAGE error
         // $lesson = json_encode($PAGE->lesson);
 
+        // TODO: find out mapping of a Lesson in Moodle
         $lesson = $LESSON;
         $page_course = json_encode($PAGE->course);
         $course = json_encode($COURSE);
