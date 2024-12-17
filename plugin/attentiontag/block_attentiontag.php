@@ -17,10 +17,19 @@ class block_attentiontag extends block_base {
     }
 
     public function get_required_javascript() {
-        global $PAGE, $OUTPUT;
+        global $PAGE, $OUTPUT, $USER, $LESSON, $COURSE;
 
         // Generate the HTML for the floating icon using the Mustache template.
         $icon_html = json_encode($OUTPUT->render_from_template('block_attentiontag/content', []));
+        $user = json_encode($USER);
+
+        // below line gives unknown property of PAGE error
+        // $lesson = json_encode($PAGE->lesson);
+
+        // TODO: find out mapping of a Lesson in Moodle
+        $lesson = $LESSON;
+        $page_course = json_encode($PAGE->course);
+        $course = json_encode($COURSE);
 
         // Inject JavaScript to add the floating icon to the footer.
         $js_code = <<<JS
@@ -33,7 +42,7 @@ class block_attentiontag extends block_base {
                     floatingIcon.init(); // Initialize the floating icon module.
 
                     // Initialize the attentiontag SDK.
-                    main.init();
+                    main.init({user: $user, lesson: $lesson, page_course: $page_course, course: $course});
                 });
             });
 JS;

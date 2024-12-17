@@ -41,8 +41,8 @@ module.exports = {
             'block_attentiontag/attentiontag': path.resolve(__dirname, 'amd/src/attentiontag'), // Map Moodle AMD module to React-based integration
             // TODO: Make the below work for all core/* - the below line didn't work
 //            'core': '/Users/arvind/attentiontag/code/moodle/moodle/lib/amd/build',
-            'core/log': '/Users/arvind/attentiontag/code/moodle/moodle/lib/amd/build/log.min.js',
-            'core/loglevel': '/Users/arvind/attentiontag/code/moodle/moodle/lib/amd/build/loglevel.min.js'
+            'core/log': path.resolve(__dirname, '../../lib/amd/build/log.min.js'),
+            'core/loglevel': path.resolve(__dirname, '../../lib/amd/build/loglevel.min.js')
 
         },
         extensions: ['.js', '.jsx'],              // Allow importing without extensions
