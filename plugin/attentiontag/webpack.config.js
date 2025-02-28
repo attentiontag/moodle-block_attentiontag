@@ -3,7 +3,7 @@ const path = require('path');
 module.exports = {
     // Define entry points for React/npm integration and Moodle AMD module
     entry: {
-        'attentiontag': './amd/src/attentiontag.js', // React-based npm integration
+        // 'attentiontag': './amd/src/attentiontag.js', // React-based npm integration
         'main': './amd/src/main.js',                // Moodle-specific AMD module
         'floating_icon': './amd/src/floating_icon.js', // Add floating_icon entry
     },

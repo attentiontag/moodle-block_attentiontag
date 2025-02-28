@@ -17,7 +17,7 @@ class block_attentiontag extends block_base {
     }
 
     public function get_required_javascript() {
-        global $PAGE, $OUTPUT, $USER, $LESSON, $COURSE;
+        global $PAGE, $OUTPUT, $USER, $LESSON, $COURSE, $TITLE, $CFG, $DB, $CM;
 
         // Generate the HTML for the floating icon using the Mustache template.
         $icon_html = json_encode($OUTPUT->render_from_template('block_attentiontag/content', []));
@@ -27,9 +27,71 @@ class block_attentiontag extends block_base {
         // $lesson = json_encode($PAGE->lesson);
 
         // TODO: find out mapping of a Lesson in Moodle
-        $lesson = $LESSON;
-        $page_course = json_encode($PAGE->course);
-        $course = json_encode($COURSE);
+        // $lesson = json_encode($LESSON);
+        // $title = json_encode($TITLE);
+        // $page = json_encode($PAGE);
+        // $course = json_encode($COURSE);
+        // $DB_LESSON = $DB->get_records('course_sections', ['course' => '2']);
+        // $db_lesson = json_encode($DB_LESSON);
+
+        // $modinfo = get_fast_modinfo(2);
+        // $cm = $modinfo->get_cm($moduleid);
+        // $modinfojson = json_encode($modinfo);
+        // $cmjson = json_encode($cm);
+        // $courseid = $COURSE->id;
+        // $course = $DB->get_record('course', array('id' => $courseid));
+        // $info = get_fast_modinfo($course);
+        // print_object($info);
+        // $cms = $info->get_cms();
+
+        $pagetype = $PAGE->pagetype;
+        $context = $PAGE->context;
+        // if context == "course-view-topics", on course page
+        // if context == "course-view-section-topics" on section page
+        // if context == "mod-{module-type}-view" on module page
+        // $context_json = json_encode($context);
+
+        $pattern = '/^mod-[a-zA-Z0-9_-]+-view$/';
+
+        // check if the user is a student
+        $roles = get_user_roles($context, $USER->id);
+        $roleShortnames = []; 
+        foreach ($roles as $role) {
+            $roleShortnames[] = $role->shortname;
+        }
+        $isStudent = in_array('student', $roleShortnames);
+        // print_object($isStudent);
+
+        $at_info = new stdClass();
+        if(preg_match($pattern, $pagetype)) {
+            // get the module(content) id from url
+            $content_id = optional_param('id', 0, PARAM_INT);
+
+            $course_module = $DB->get_record('course_modules', ['id' => $content_id]);
+            $module_type = $DB->get_record('modules', ['id' => $course_module->module])->name;
+            $module_id = $course_module->instance;
+            $module = $DB->get_record($module_type, ['id' => $module_id]);
+            $section_id = $course_module->section;
+            $section = $DB->get_record('course_sections', ['id' => $section_id]);    
+
+            $at_info->module_name = $COURSE->fullname;
+            $at_info->module_description = $COURSE->summary;
+            $at_info->module_ref = $COURSE->id;
+
+            $at_info->lesson_name = $section->name;
+            $at_info->lesson_description = $section->summary;
+            $at_info->lesson_ref = $section_id;
+
+            $at_info->content_name = $module->name;
+            $at_info->content_description = $module->intro;
+            $at_info->content_ref = $module_id;
+
+            $at_info->clientId = $CFG->local_attentiontag_client_id;
+            $at_info->clientSecret = $CFG->local_attentiontag_client_secret;
+            $at_info->project = $CFG->local_attentiontag_project_id;
+            
+        }
+        $at_info = json_encode($at_info);
 
         // Inject JavaScript to add the floating icon to the footer.
         $js_code = <<<JS
@@ -42,7 +104,7 @@ class block_attentiontag extends block_base {
                     floatingIcon.init(); // Initialize the floating icon module.
 
                     // Initialize the attentiontag SDK.
-                    main.init({user: $user, lesson: $lesson, page_course: $page_course, course: $course});
+                    main.init({user: $user, atInfo: $at_info });
                 });
             });
 JS;
