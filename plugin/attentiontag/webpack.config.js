@@ -32,13 +32,20 @@ module.exports = {
                         ],
                     },
                 },
+            },      
+            {
+                test: /\.css$/,
+                use: [
+                'style-loader',
+                'css-loader'
+                ],
             },
         ],
     },
     // Resolve module paths and aliases
     resolve: {
         alias: {
-            'block_attentiontag/attentiontag': path.resolve(__dirname, 'amd/src/attentiontag'), // Map Moodle AMD module to React-based integration
+            // 'block_attentiontag/attentiontag': path.resolve(__dirname, 'amd/src/attentiontag'), // Map Moodle AMD module to React-based integration
             // TODO: Make the below work for all core/* - the below line didn't work
 //            'core': '/Users/arvind/attentiontag/code/moodle/moodle/lib/amd/build',
             'core/log': path.resolve(__dirname, '../../lib/amd/build/log.min.js'),

@@ -51,8 +51,6 @@ class block_attentiontag extends block_base {
         // if context == "mod-{module-type}-view" on module page
         // $context_json = json_encode($context);
 
-        $pattern = '/^mod-[a-zA-Z0-9_-]+-view$/';
-
         // check if the user is a student
         $roles = get_user_roles($context, $USER->id);
         $roleShortnames = []; 
@@ -63,12 +61,15 @@ class block_attentiontag extends block_base {
         // print_object($isStudent);
 
         $at_info = new stdClass();
-        if(preg_match($pattern, $pagetype)) {
+        // if(preg_match($pattern, $pagetype)) {
+        if($context->contextlevel == CONTEXT_MODULE) {
             // get the module(content) id from url
-            $content_id = optional_param('id', 0, PARAM_INT);
+            // $content_id = optional_param('id', 0, PARAM_INT);
+            $content_id = $context->instanceid;
+            $course_module = get_coursemodule_from_id(null, $content_id, 0, false, MUST_EXIST);
 
-            $course_module = $DB->get_record('course_modules', ['id' => $content_id]);
-            $module_type = $DB->get_record('modules', ['id' => $course_module->module])->name;
+            // $course_module = $DB->get_record('course_modules', ['id' => $content_id]);
+            // $module_type = $DB->get_record('modules', ['id' => $course_module->module])->name;
             $module_id = $course_module->instance;
             $module = $DB->get_record($module_type, ['id' => $module_id]);
             $section_id = $course_module->section;
