@@ -69,7 +69,7 @@ class block_attentiontag extends block_base {
             $course_module = get_coursemodule_from_id(null, $content_id, 0, false, MUST_EXIST);
 
             // $course_module = $DB->get_record('course_modules', ['id' => $content_id]);
-            // $module_type = $DB->get_record('modules', ['id' => $course_module->module])->name;
+            $module_type = $DB->get_record('modules', ['id' => $course_module->module])->name;
             $module_id = $course_module->instance;
             $module = $DB->get_record($module_type, ['id' => $module_id]);
             $section_id = $course_module->section;
@@ -87,10 +87,19 @@ class block_attentiontag extends block_base {
             $at_info->content_description = $module->intro;
             $at_info->content_ref = $module_id;
 
-            $at_info->clientId = $CFG->local_attentiontag_client_id;
-            $at_info->clientSecret = $CFG->local_attentiontag_client_secret;
-            $at_info->project = $CFG->local_attentiontag_project_id;
+            // for localhost
+            // $at_info->clientId = $CFG->local_attentiontag_client_id;
+            // $at_info->clientSecret = $CFG->local_attentiontag_client_secret;
+            // $at_info->project = $CFG->local_attentiontag_project_id;
+
+            // for api.attentiontag.com
+            // $at_info->clientId = $CFG->attentiontag_client_id;
+            // $at_info->clientSecret = $CFG->attentiontag_client_secret;
+            // $at_info->project = $CFG->attentiontag_project_id;
             
+            $at_info->clientId = get_config("block_attentiontag", "client_id");
+            $at_info->clientSecret = get_config("block_attentiontag", "client_secret");
+            $at_info->project = get_config("block_attentiontag", "project_id");
         }
         $at_info = json_encode($at_info);
 
@@ -127,5 +136,10 @@ JS;
     public function applicable_formats() {
         // Specify the pages where this block can be added.
         return array('mod' => true, 'course-view' => true, 'site-index' => false);
+    }
+
+    // this function is needed to enable settings for our block plugin
+    public function has_config() {
+        return true;
     }
 }

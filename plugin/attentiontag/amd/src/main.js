@@ -4,7 +4,7 @@ define(["@attention_tag/attentiontag/dist/attention-tag"], function(atSDK) {
         console.log("user", user)
         console.log("atInfo", atInfo)
         const visualPromptContainer = document.getElementById("attentiontag-visual-prompt-container")
-        const auditoryCueContainer = document.getElementById("attentiontag--auditory-cue-container")
+        const auditoryCueContainer = document.getElementById("attentiontag-auditory-cue-container")
         const chatWidgetContainer = document.getElementById("attentiontag-chat-widget-container")
         if(JSON.stringify(atInfo) != "{}") {
             try {
