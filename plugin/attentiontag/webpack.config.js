@@ -49,8 +49,8 @@ module.exports = {
             // TODO: Make the below work for all core/* - the below line didn't work
 //            'core': '/Users/arvind/attentiontag/code/moodle/moodle/lib/amd/build',
             'core/log': path.resolve(__dirname, '../../lib/amd/build/log.min.js'),
-            'core/loglevel': path.resolve(__dirname, '../../lib/amd/build/loglevel.min.js')
-
+            'core/loglevel': path.resolve(__dirname, '../../lib/amd/build/loglevel.min.js'),
+            "block_attentiontag/floating_icon": path.resolve(__dirname, "/amd/src/floating_icon.js"), // explicitly map floating_icon AMD module to be imported in main.js
         },
         extensions: ['.js', '.jsx'],              // Allow importing without extensions
     },

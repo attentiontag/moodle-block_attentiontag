@@ -2,9 +2,6 @@
 defined('MOODLE_INTERNAL') || die;
 
 if ($ADMIN->fulltree) {
-    // Create a new settings page under "Blocks"
-    // $settings = new admin_settingpage('block_attentiontag', get_string('pluginname', 'block_attentiontag'));
-
     // Client ID field
     $settings->add(new admin_setting_configtext(
         'block_attentiontag/client_id',
@@ -21,14 +18,15 @@ if ($ADMIN->fulltree) {
         PARAM_ALPHANUMEXT
     ));
 
-    // Client Secret field 
+    // AttentionTag ProjectID field 
     $settings->add(new admin_setting_configtext(
         'block_attentiontag/project_id',
         get_string('projectid', 'block_attentiontag'),
         '',
         PARAM_ALPHANUMEXT
     ));
-
-    // Register settings page under Plugins > Blocks
-    // $ADMIN->add('blocksettings', $settings);
 }
+
+// time interval after which the DART icon updates
+// currently it's 30 seconds
+set_config('update_emotion_interval_seconds', 30, 'block_attentiontag');
