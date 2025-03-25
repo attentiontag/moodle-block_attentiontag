@@ -20,36 +20,11 @@ class block_attentiontag extends block_base {
         global $PAGE, $OUTPUT, $USER, $LESSON, $COURSE, $TITLE, $CFG, $DB, $CM;
 
         // Generate the HTML for the floating icon using the Mustache template.
-        $icon_html = json_encode($OUTPUT->render_from_template('block_attentiontag/content', []));
+        $attention_tag_html = json_encode($OUTPUT->render_from_template('block_attentiontag/content', []));
         $user = json_encode($USER);
-
-        // below line gives unknown property of PAGE error
-        // $lesson = json_encode($PAGE->lesson);
-
-        // TODO: find out mapping of a Lesson in Moodle
-        // $lesson = json_encode($LESSON);
-        // $title = json_encode($TITLE);
-        // $page = json_encode($PAGE);
-        // $course = json_encode($COURSE);
-        // $DB_LESSON = $DB->get_records('course_sections', ['course' => '2']);
-        // $db_lesson = json_encode($DB_LESSON);
-
-        // $modinfo = get_fast_modinfo(2);
-        // $cm = $modinfo->get_cm($moduleid);
-        // $modinfojson = json_encode($modinfo);
-        // $cmjson = json_encode($cm);
-        // $courseid = $COURSE->id;
-        // $course = $DB->get_record('course', array('id' => $courseid));
-        // $info = get_fast_modinfo($course);
-        // print_object($info);
-        // $cms = $info->get_cms();
 
         $pagetype = $PAGE->pagetype;
         $context = $PAGE->context;
-        // if context == "course-view-topics", on course page
-        // if context == "course-view-section-topics" on section page
-        // if context == "mod-{module-type}-view" on module page
-        // $context_json = json_encode($context);
 
         // check if the user is a student
         $roles = get_user_roles($context, $USER->id);
@@ -57,19 +32,14 @@ class block_attentiontag extends block_base {
         foreach ($roles as $role) {
             $roleShortnames[] = $role->shortname;
         }
-        $isStudent = in_array('student', $roleShortnames);
-        // print_object($isStudent);
+        $isStudent = in_array('student', $roleShortnames); // check if any of the roles of the user is 'student'
 
         $at_info = new stdClass();
-        // if(preg_match($pattern, $pagetype)) {
-        if($context->contextlevel == CONTEXT_MODULE) {
-            // get the module(content) id from url
-            // $content_id = optional_param('id', 0, PARAM_INT);
+        if($context->contextlevel == CONTEXT_MODULE && $isStudent) {
             $content_id = $context->instanceid;
             $course_module = get_coursemodule_from_id(null, $content_id, 0, false, MUST_EXIST);
 
-            // $course_module = $DB->get_record('course_modules', ['id' => $content_id]);
-            // $module_type = $DB->get_record('modules', ['id' => $course_module->module])->name;
+            $module_type = $DB->get_record('modules', ['id' => $course_module->module])->name;
             $module_id = $course_module->instance;
             $module = $DB->get_record($module_type, ['id' => $module_id]);
             $section_id = $course_module->section;
@@ -86,26 +56,28 @@ class block_attentiontag extends block_base {
             $at_info->content_name = $module->name;
             $at_info->content_description = $module->intro;
             $at_info->content_ref = $module_id;
-
-            $at_info->clientId = $CFG->local_attentiontag_client_id;
-            $at_info->clientSecret = $CFG->local_attentiontag_client_secret;
-            $at_info->project = $CFG->local_attentiontag_project_id;
             
+            $at_info->clientId = get_config("block_attentiontag", "client_id");
+            $at_info->clientSecret = get_config("block_attentiontag", "client_secret");
+            $at_info->project = get_config("block_attentiontag", "project_id");
         }
         $at_info = json_encode($at_info);
+
+        // get the time interval from settings
+        $update_emotion_interval_seconds = get_config('block_attentiontag', 'update_emotion_interval_seconds');
 
         // Inject JavaScript to add the floating icon to the footer.
         $js_code = <<<JS
             require(['jquery'], function($) {
-                var iconHtml = $icon_html;
-                $('body').append(iconHtml);  // Append the floating icon to the body.
 
                 // Initialize the floating icon logic (Moodle-specific AMD module).
-                require(['block_attentiontag/floating_icon', 'block_attentiontag/main'], function(floatingIcon, main) {
-                    floatingIcon.init(); // Initialize the floating icon module.
+                require(['block_attentiontag/main'], function(main) {
 
-                    // Initialize the attentiontag SDK.
-                    main.init({user: $user, atInfo: $at_info });
+                    if(Boolean($isStudent)) { // check if the loggedin user is a student
+                        var attentionTagHtml = $attention_tag_html; 
+                        $('body').append(attentionTagHtml);  // Append content.mustache to the document
+                        main.init({user: $user, atInfo: $at_info, updateEmotionIntervalSeconds: $update_emotion_interval_seconds }); // Initialize the attentiontag SDK.
+                    }
                 });
             });
 JS;
@@ -126,6 +98,11 @@ JS;
 
     public function applicable_formats() {
         // Specify the pages where this block can be added.
-        return array('mod' => true, 'course-view' => true, 'site-index' => false);
+        return array('mod' => true, 'course-view' => false, 'site-index' => false);
+    }
+
+    // this function is needed to enable settings for our block plugin
+    public function has_config() {
+        return true;
     }
 }

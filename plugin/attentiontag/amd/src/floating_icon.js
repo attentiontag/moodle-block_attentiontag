@@ -1,89 +1,91 @@
 define(['jquery', 'core/log'], function($, log) {
     'use strict';
 
-    /**
-     * Floating icon code
-     */
-    function init() {
-        console.log('AttentionTag init console.log');
-        log.debug('AttentionTag block before init.');
-//        attentiontag.init();
+    function init({ at, updateEmotionIntervalSeconds }) {
+        // log.debug('AttentionTag block before init.');
 
-        // renderAttentionTag('attentiontag-container', { prop1: 'value1', prop2: 'value2' });
-        // console.log('AttentionTag React component initialized.');
-        //
-        //
-        // log.debug('AttentionTag block after initialization');
-
-        // Demonstration: Use Lodash to join an array into a string
-        // console.log('Lodash is working:', _.isEmpty({}));
-
-        // const sampleArray = ['Hello', 'from', 'Lodash'];
-        // const joinedString = _.join(sampleArray, ' ');
-        // log.debug('Lodash joined string: ' + joinedString);
-        // console.log('Lodash joined string: ' + joinedString);
-
-        // Show the chat box initially
         $('.attentiontag-chat-box').fadeIn();
 
-        // Handle "No" button click - just hide the chat box and show Deactivated image
         $('#attentiontag-btn-no').on('click', function() {
             $('.attentiontag-chat-box').fadeOut();
             $('#attentiontag-image-initial').show();
         });
 
-        // Handle "Yes" button click - ask for camera permission and change to Wake_up.gif if granted
         $('#attentiontag-btn-yes').on('click', function() {
             $('.attentiontag-chat-box').fadeOut();
-
             if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
                 navigator.mediaDevices.getUserMedia({ video: true })
                     .then(function(stream) {
                         log.debug('NEW! - Camera access granted.');
-                        stream.getTracks().forEach(track => track.stop()); // Stop the video stream
+                        stream.getTracks().forEach(track => track.stop());
 
-                        // Switch to the "Wake_up" image after permission is granted
                         $('#attentiontag-image-initial').hide();
                         $('#attentiontag-image-after-permission').show();
+                        // console.log("time interval ", updateEmotionIntervalSeconds)
+                        setInterval(() => updateEmotionFromIndexedDB(at), updateEmotionIntervalSeconds * 1000);
 
-                        // After 15 seconds, switch to the happy face image
-                        setTimeout(function() {
-                            $('#attentiontag-image-after-permission').hide();
-                            $('#attentiontag-image-happy').show();
-
-                            // After 15 more seconds, switch to the sad face image
-                            setTimeout(function() {
-                                $('#attentiontag-image-happy').hide();
-                                $('#attentiontag-image-sad').show();
-
-                                // After another 15 seconds, start shaking the sad face
-                                setTimeout(function() {
-                                    $('#attentiontag-image-sad').addClass('attentiontag-shake');
-                                }, 7000);
-                            }, 7000);
-                        }, 5000); // Delay before showing the happy face
                     })
                     .catch(function(err) {
                         log.debug('Camera access denied: ' + err);
                     });
             } else {
                 log.debug('getUserMedia not supported by this browser.');
-                // Handle the case where getUserMedia is not supported
             }
         });
 
-        // Handle click event on the sad face image to show the message box and stop shaking
         $('#attentiontag-image-sad').on('click', function() {
             $('.attentiontag-message-box').fadeIn();
-
-            // Stop the shaking by removing the class
             $('#attentiontag-image-sad').removeClass('attentiontag-shake');
         });
 
-        // Handle click event to close the message box
         $('.attentiontag-close-button').on('click', function() {
             $('.attentiontag-message-box').fadeOut();
         });
+
+    }
+
+    async function updateEmotionFromIndexedDB(at) {
+        const inferences = await at.getInferences(); // get inferences of the last 60 seconds using the AttentionTag SDK 
+        if (inferences.length > 0) {
+            const emotionCounts = {};
+            inferences.forEach(entry => {
+                emotionCounts[entry.emotion] = (emotionCounts[entry.emotion] || 0) + 1;
+            });
+            const avgEmotion = Object.keys(emotionCounts).reduce((a, b) => emotionCounts[a] > emotionCounts[b] ? a : b); // most frequent emotion
+            updateEmotionDisplay(avgEmotion);
+        }
+    }
+
+    function updateEmotionDisplay(emotion) {
+        $('.attentiontag_bot').hide();
+        switch (emotion) {
+            case 'Happiness':
+                $('#attentiontag-image-happy').show();
+                break;
+            case 'Sadness':
+                $('#attentiontag-image-sad').show();
+                break;
+            case 'Anger':
+                $('#attentiontag-image-angry').show();
+                break;
+            case 'Neutral':
+                $('#attentiontag-image-neutral').show();
+                break;
+            case 'Fear':
+                $('#attentiontag-image-scared').show();
+                break;
+            case 'Surprise':
+                $('#attentiontag-image-surprise').show();
+                break;
+            case 'Contempt':
+                $('#attentiontag-image-contempt').show();
+                break;
+            case 'Disgust':
+                $('#attentiontag-image-disgust').show();
+                break;
+            default:
+                $('#attentiontag-image-initial').show();
+        }
     }
 
     return {

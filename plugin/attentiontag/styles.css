@@ -94,3 +94,12 @@
     animation: shake 0.5s;
     animation-iteration-count: infinite;
 }
+
+/* for AttentionTag trigger components */
+.attentiontag-helper {
+    position: fixed;
+    bottom: 20px;
+    left: 80px;
+    cursor: pointer;
+    z-index: 1000;
+}
