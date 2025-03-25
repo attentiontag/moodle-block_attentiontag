@@ -20,7 +20,7 @@ class block_attentiontag extends block_base {
         global $PAGE, $OUTPUT, $USER, $LESSON, $COURSE, $TITLE, $CFG, $DB, $CM;
 
         // Generate the HTML for the floating icon using the Mustache template.
-        $icon_html = json_encode($OUTPUT->render_from_template('block_attentiontag/content', []));
+        $attention_tag_html = json_encode($OUTPUT->render_from_template('block_attentiontag/content', []));
         $user = json_encode($USER);
 
         $pagetype = $PAGE->pagetype;
@@ -74,8 +74,8 @@ class block_attentiontag extends block_base {
                 require(['block_attentiontag/main'], function(main) {
 
                     if(Boolean($isStudent)) { // check if the loggedin user is a student
-                        var iconHtml = $icon_html;
-                        $('body').append(iconHtml);  // Append the floating icon to the body.
+                        var attentionTagHtml = $attention_tag_html; 
+                        $('body').append(attentionTagHtml);  // Append content.mustache to the document
                         main.init({user: $user, atInfo: $at_info, updateEmotionIntervalSeconds: $update_emotion_interval_seconds }); // Initialize the attentiontag SDK.
                     }
                 });

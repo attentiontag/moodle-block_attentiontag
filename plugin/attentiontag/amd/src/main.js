@@ -1,9 +1,10 @@
 define(["@attention_tag/attentiontag/dist/attention-tag", "block_attentiontag/floating_icon"], function(atSDK, floatingIcon) {
     'use strict'
-    async function init({user, atInfo, updateEmotionIntervalSeconds }) {
+    async function init({user, atInfo }) {
         const visualPromptContainer = document.getElementById("attentiontag-visual-prompt-container")
         const auditoryCueContainer = document.getElementById("attentiontag-auditory-cue-container")
         const chatWidgetContainer = document.getElementById("attentiontag-chat-widget-container")
+        const floatingIconContainer = document.getElementById("floating-icon-container")
 
         try {
             const at = new atSDK.AttentionTag({ clientId: atInfo.clientId, 
@@ -36,11 +37,10 @@ define(["@attention_tag/attentiontag/dist/attention-tag", "block_attentiontag/fl
             if(chatWidgetContainer) {
                 at.initChatWidget(chatWidgetContainer)
             }
-
-            if(floatingIcon) {
-                // initialise the floating-icon with AttentionTag object and update_emotion_interval_seconds
-                floatingIcon.init({ at, updateEmotionIntervalSeconds })
+            if(floatingIconContainer) {
+                at.initDart(floatingIconContainer)
             }
+
         } catch(err) {
             console.error("Error occurred ", err);
         }

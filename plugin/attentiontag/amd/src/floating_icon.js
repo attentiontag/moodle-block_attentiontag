@@ -24,19 +24,6 @@ define(['jquery', 'core/log'], function($, log) {
                         // console.log("time interval ", updateEmotionIntervalSeconds)
                         setInterval(() => updateEmotionFromIndexedDB(at), updateEmotionIntervalSeconds * 1000);
 
-                        // setTimeout(function() {
-                        //     $('#attentiontag-image-after-permission').hide();
-                        //     $('#attentiontag-image-happy').show();
-
-                        //     setTimeout(function() {
-                        //         $('#attentiontag-image-happy').hide();
-                        //         $('#attentiontag-image-sad').show();
-
-                        //         setTimeout(function() {
-                        //             $('#attentiontag-image-sad').addClass('attentiontag-shake');
-                        //         }, 7000);
-                        //     }, 7000);
-                        // }, 5000);
                     })
                     .catch(function(err) {
                         log.debug('Camera access denied: ' + err);
