@@ -1,4 +1,4 @@
-define(["@attention_tag/attentiontag/dist/attention-tag", "block_attentiontag/floating_icon"], function(atSDK, floatingIcon) {
+define(["@attention_tag/attentiontag/dist/attention-tag"], function(atSDK) {
     'use strict'
     async function init({user, atInfo }) {
         const visualPromptContainer = document.getElementById("attentiontag-visual-prompt-container")
