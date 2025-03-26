@@ -75,8 +75,6 @@ Follow these steps to install the AttentionTag plugin on your Moodle instance:
 ## Support
 For assistance, reach out to **[team@attentiontag.com](mailto:team@attentiontag.com)** or create an issue on our [GitHub Issue Tracker](https://github.com/attentiontag/moodle-block_attentiontag/issues).
 
-## License
-This project is licensed under [MIT License](LICENSE).
 
 ---
 *Enhance student engagement and focus with AttentionTag!*
