@@ -32,7 +32,7 @@ Follow these steps to install the AttentionTag plugin on your Moodle instance:
 
 5. **Install Dependencies**  
    ```sh
-   cd moodle/blocks/attentiontag
+   cd /var/www/html/moodle/blocks/attentiontag
    npm install
    npm install @attention_tag/attentiontag
    npm run build
