@@ -1,5 +1,8 @@
-const path = require('path');
+/**
+ * @copyright 2025 AttentionTag Vision Technologies Pvt Ltd
+ */
 
+const path = require('path');
 module.exports = {
     // Define entry points for React/npm integration and Moodle AMD module
     entry: {

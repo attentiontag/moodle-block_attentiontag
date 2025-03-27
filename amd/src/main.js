@@ -1,3 +1,7 @@
+/**
+ * @copyright 2025 AttentionTag Vision Technologies Pvt Ltd
+ */
+
 define(["@attention_tag/attentiontag/dist/attention-tag"], function(atSDK) {
     'use strict'
     async function init({user, atInfo }) {
