@@ -1,4 +1,8 @@
 <?php
+/**
+ * @copyright 2025 AttentionTag Vision Technologies Pvt Ltd
+ */
+
 defined('MOODLE_INTERNAL') || die;
 
 if ($ADMIN->fulltree) {
@@ -26,7 +30,3 @@ if ($ADMIN->fulltree) {
         PARAM_ALPHANUMEXT
     ));
 }
-
-// time interval after which the DART icon updates
-// currently it's 30 seconds
-set_config('update_emotion_interval_seconds', 30, 'block_attentiontag');

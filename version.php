@@ -1,4 +1,7 @@
 <?php
+/**
+ * @copyright 2025 AttentionTag Vision Technologies Pvt Ltd
+ */
 defined('MOODLE_INTERNAL') || die();
 
 $plugin->component = 'block_attentiontag';
