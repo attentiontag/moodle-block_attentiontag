@@ -67,9 +67,6 @@ class block_attentiontag extends block_base {
         }
         $at_info = json_encode($at_info);
 
-        // get the time interval from settings
-        $update_emotion_interval_seconds = get_config('block_attentiontag', 'update_emotion_interval_seconds');
-
         // Inject JavaScript to add the floating icon to the footer.
         $js_code = <<<JS
             require(['jquery'], function($) {
@@ -80,7 +77,7 @@ class block_attentiontag extends block_base {
                     if(Boolean($isStudent)) { // check if the loggedin user is a student
                         var attentionTagHtml = $attention_tag_html; 
                         $('body').append(attentionTagHtml);  // Append content.mustache to the document
-                        main.init({user: $user, atInfo: $at_info, updateEmotionIntervalSeconds: $update_emotion_interval_seconds }); // Initialize the attentiontag SDK.
+                        main.init({user: $user, atInfo: $at_info}); // Initialize the attentiontag SDK.
                     }
                 });
             });
