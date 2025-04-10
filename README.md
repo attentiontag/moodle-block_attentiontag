@@ -21,7 +21,12 @@ Follow these steps to install the AttentionTag plugin on your Moodle instance:
 2. **Verify Installation**  
    Ensure that the plugin is installed by checking for an `attentiontag` folder inside `moodle/blocks`.
 
-3. **Install Dependencies**  
+3. **Request Credentials**  
+   - Contact **team@attentiontag.com** to receive your **Client ID**, **Client Secret**, and **Project ID**.
+   - These credentials are required for communication with the AttentionTag backend.
+   - Your npm profile will also be added to the list of allowed users in the attention_tag organization so that you can download the SDK.
+
+4. **Install Dependencies**  
    You have to manually install our AttentionTag SDK.
    ```sh
    cd /var/www/html/moodle/blocks/attentiontag
@@ -29,32 +34,28 @@ Follow these steps to install the AttentionTag plugin on your Moodle instance:
    npm install @attention_tag/attentiontag
    npm run build
    ```
+   If you're using sudo(or any other user) to install the package, use sudo(or the same user) while logging into npm also.
+
+5. **Purge Caches**
+   Go to Site Administration > Development > Purge Caches > Purge All Cache
 
 ## Setup & Configuration
-1. **Request Credentials**  
-   - Contact **team@attentiontag.com** to receive your **Client ID**, **Client Secret**, and **Project ID**.
-   - These credentials are required for communication with the AttentionTag backend.
-
-2. **Enter Credentials in Moodle**  
+1. **Enter Credentials in Moodle**  
    - Navigate to **Site Administration > Plugins > Blocks > Manage Blocks > AttentionTag > Settings**.
    - Enter the **Client ID**, **Client Secret**, and **Project ID** provided.
 
-3. **Create an AttentionTag Account**  
+2. **Create an AttentionTag Account**  
    - Visit [AttentionTag](https://app.attentiontag.com) and create your account in your respective organization.
    - Navigate to the **Assistants Tab** to configure **Visual Prompts** or **Auditory Cues**(more triggers comming soon).
 
-4. **Enable the Plugin in Moodle**  
+3. **Enable the Plugin in Moodle**  
    - Go to any **course module page** in Moodle.
    - Enable **Edit Mode** (top right corner).
    - Add the **AttentionTag block** to the page.
 
 ## How It Works
 1. **Student Interaction**
-   - When a student accesses a course module page with AttentionTag enabled, the plugin captures their webcam feed.
-   - ML models analyze the feed to assess **concentration levels, sleepiness, and focus effectiveness** and other factors.
-   - These attributes are compared against the thresholds defined in the **Assistants Tab**.
-   - If necessary, **Visual Prompts** or **Auditory Cues** are triggered.
-
+   When the AttentionTag plugin is enabled on a course_module page and the logged in user is a “student” of this course_module, it runs inferences on the webcam feed and runs various ML models to generate inferences and tags. These are then used to compute different mental attributes such as concentration levels, sleepiness, effective focus etc. These levels are then compared with the thresholds defined in the Assistants tab and Visual Prompts/Auditory Cues are triggered corresponding to the results.
 2. **Triggers**
    - **Visual Prompt:** Displays an uploaded image at the bottom left of the screen.
    - **Auditory Cue:** Plays a sound to alert the student.
