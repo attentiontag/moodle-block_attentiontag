@@ -15,13 +15,16 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * General Plugin Function 
+ * General Plugin Function
  *
  * @package    block_attentiontag
  * @copyright  2025 AttentionTag Vision Technologies Pvt Ltd
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
+ /**
+  * Footer function
+  */
 function block_attentiontag_footer() {
     global $OUTPUT;
     // Render and inject the Attention Tag components.

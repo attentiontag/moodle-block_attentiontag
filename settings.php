@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Admin Settings 
+ * Admin Settings
  *
  * @package    block_attentiontag
  * @copyright  2025 AttentionTag Vision Technologies Pvt Ltd

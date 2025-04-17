@@ -15,7 +15,6 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Block class
  *
  * @package    block_attentiontag
  * @copyright  2025 AttentionTag Vision Technologies Pvt Ltd
@@ -25,12 +24,21 @@
 
 defined('MOODLE_INTERNAL') || die();
 
+/**
+ * Block class
+ */
 class block_attentiontag extends block_base {
 
+    /**
+     * init function 
+     */
     public function init() {
         $this->title = get_string('pluginname', 'block_attentiontag');
     }
 
+    /**
+     * get_content function 
+     */
     public function get_content() {
         // Return an empty block content.
         $this->content = new stdClass();
@@ -40,6 +48,9 @@ class block_attentiontag extends block_base {
         return $this->content;
     }
 
+    /**
+     * get_required_javascript function 
+     */
     public function get_required_javascript() {
         global $OUTPUT, $USER, $COURSE, $DB;
 
@@ -56,13 +67,13 @@ class block_attentiontag extends block_base {
         }
         $isstudent = in_array('student', $roleshortnames); // check if any of the roles of the user is 'student'
 
-        $at_info = new stdClass();
-        if($context->contextlevel == CONTEXT_MODULE && $is_student) {
+        $atinfo = new stdClass();
+        if($context->contextlevel == CONTEXT_MODULE && $isstudent) {
             $contentid = $context->instanceid;
             $coursemodule = get_coursemodule_from_id(null, $contentid, 0, false, MUST_EXIST);
 
             $moduletype = $DB->get_record('modules', ['id' => $coursemodule->module])->name;
-            $moduleid = $course_module->instance;
+            $moduleid = $coursemodule->instance;
             $module = $DB->get_record($moduletype, ['id' => $moduleid]);
             $sectionid = $coursemodule->section;
             $section = $DB->get_record('course_sections', ['id' => $sectionid]);    
@@ -86,7 +97,7 @@ class block_attentiontag extends block_base {
         $atinfo = json_encode($atinfo);
 
         // Inject JavaScript to add the floating icon to the footer.
-        $js_code = <<<JS
+        $jscode = <<<JS
             require(['jquery'], function($) {
 
                 // Initialize the floating icon logic (Moodle-specific AMD module).
@@ -101,17 +112,23 @@ class block_attentiontag extends block_base {
 JS;
 
         // Add inline JavaScript to the page.
-        $this->page->requires->js_amd_inline($js_code);
+        $this->page->requires->js_amd_inline($jscode);
 
         // Explicitly load the Moodle-specific AMD module (block_attentiontag/main).
         $this->page->requires->js_call_amd('block_attentiontag/main', 'init');
     }
 
+    /**
+     * applicable_formats function 
+     */
     public function applicable_formats() {
         // Specify the pages where this block can be added.
         return array('mod' => true, 'course-view' => false, 'site-index' => false);
     }
 
+    /**
+     * has_config function 
+     */
     // this function is needed to enable settings for our block plugin
     public function has_config() {
         return true;

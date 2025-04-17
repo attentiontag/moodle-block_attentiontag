@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Version Information 
+ * Version Information
  *
  * @package    block_attentiontag
  * @copyright  2025 AttentionTag Vision Technologies Pvt Ltd

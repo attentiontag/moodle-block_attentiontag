@@ -14,14 +14,18 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Main function 
+ * Main function
  *
- * @package    block_attentiontag
+ * @package
  * @copyright  2025 AttentionTag Vision Technologies Pvt Ltd
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 define(["@attention_tag/attentiontag/dist/attention-tag"], function(atSDK) {
-    'use strict'
+    'use strict';
+
+    /**
+     * init function to initialise the SDK
+     */
     async function init({user, atinfo }) {
         const visualPromptContainer = document.getElementById("attentiontag-visual-prompt-container");
         const auditoryCueContainer = document.getElementById("attentiontag-auditory-cue-container");
@@ -30,17 +34,15 @@ define(["@attention_tag/attentiontag/dist/attention-tag"], function(atSDK) {
 
         try {
             const at = new atSDK.AttentionTag({ clientId: atinfo.clientid, 
-                clientSecret: atinfo.clientsecret, 
+                clientSecret: atinfo.clientsecret,
                 projectId: atinfo.project });
             
-            console.log("Attention Tag object ", at);
-
             await at.initViewer({
-                viewerEmail: user.email, 
+                viewerEmail: user.email,
                 viewerRefId: user.id,
                 viewerName: user.username
             });
-            await at.startContent({ module_name: atinfo.modulename, 
+            await at.startContent({ module_name: atinfo.modulename,
                 module_ref: atinfo.moduleref,
                 lesson_name: atinfo.lessonname,
                 lesson_ref: atinfo.lessonref,
@@ -63,7 +65,7 @@ define(["@attention_tag/attentiontag/dist/attention-tag"], function(atSDK) {
                 at.initDart(floatingIconContainer);
             }
         } catch(err) {
-            console.error("Error occurred ", err);
+            // Handle Error
         }
     }
 

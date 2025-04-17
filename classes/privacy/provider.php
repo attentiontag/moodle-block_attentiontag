@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Privacy API Provider 
+ * Privacy API Provider
  *
  * @package    block_attentiontag
  * @copyright  2025 AttentionTag Vision Technologies Pvt Ltd
@@ -24,11 +24,17 @@
 
 namespace block_attentiontag\privacy;
 
+/**
+ * Provider class
+ */
 class provider implements 
     \core_privacy\local\metadata\provider,
     \core_privacy\local\request\core_userlist_provider,
     \core_privacy\local\request\plugin\provider {
 
+    /**
+     * get_metadata function 
+     */
     public static function get_metadata(collection $collection): collection {
         $collection->add_external_location_link(
             'AttentionTag Backend',
@@ -47,26 +53,44 @@ class provider implements
         return $collection;
     }
 
+    /**
+     * get_contexts_for_userid function 
+     */
     public static function get_contexts_for_userid(int $userid): contextlist {
         return new contextlist();
     }
 
+    /**
+     * get_users_in_context function 
+     */
     public static function get_users_in_context(userlist $userlist): void {
         // No user-specific data stored in Moodle. Contact team@attentiontag.com for requests.
     }
 
+    /**
+     * export_user_data function 
+     */
     public static function export_user_data(approved_contextlist $contextlist): void {
         // No user-specific data stored in Moodle. Contact team@attentiontag.com for requests.
     }
 
+    /**
+     * delete_data_for_all_users_in_context function 
+     */
     public static function delete_data_for_all_users_in_context(\context $context): void {
         // No user-specific data stored in Moodle. Contact team@attentiontag.com for requests.
     }
 
+    /**
+     * delete_data_for_user function 
+     */
     public static function delete_data_for_user(approved_contextlist $contextlist): void {
         // No user-specific data stored in Moodle. Contact team@attentiontag.com for requests.
     }
 
+    /**
+     * delete_data_for_users function 
+     */
     public static function delete_data_for_users(approved_userlist $userlist): void {
         // No user-specific data stored in Moodle. Contact team@attentiontag.com for requests.
     }
