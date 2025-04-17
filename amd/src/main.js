@@ -35,21 +35,24 @@ define(["@attention_tag/attentiontag/dist/attention-tag"], function(atSDK) {
         const floatingIconContainer = document.getElementById("floating-icon-container");
 
         try {
-            const at = new atSDK.AttentionTag({clientId: atinfo.clientid,
+            const at = new atSDK.AttentionTag({
+                clientId: atinfo.clientid,
                 clientSecret: atinfo.clientsecret,
-                projectId: atinfo.project});
+                projectId: atinfo.project
+            });
 
             await at.initViewer({
                 viewerEmail: user.email,
                 viewerRefId: user.id,
                 viewerName: user.username
             });
-            await at.startContent({module_name: atinfo.modulename,
-                module_ref: atinfo.moduleref,
-                lesson_name: atinfo.lessonname,
-                lesson_ref: atinfo.lessonref,
-                content_name: atinfo.contentname,
-                content_ref: atinfo.contentref,
+            await at.startContent({
+                moduleName: atinfo.modulename,
+                moduleRef: atinfo.moduleref,
+                lessonName: atinfo.lessonname,
+                lessonRef: atinfo.lessonref,
+                contentName: atinfo.contentname,
+                contentRef: atinfo.contentref,
             });
             // TODO: fix the start and end time for non-meeting type content
             at.startObservation(true, Date.now(), new Date("30 Nov 2025"));
