@@ -24,8 +24,9 @@ define(["@attention_tag/attentiontag/dist/attention-tag"], function(atSDK) {
     'use strict';
     /**
      * init function to initialise the SDK
-     * @param object user   user info
-     * @param object atinfo containing course info, section info, module info, clientid, clientsecret and projectid
+     * @param {Object} options          The outer object
+     * @param {Object} options.user     user info
+     * @param {Object} optoins.atinfo   containing course info, section info, module info, clientid, clientsecret and projectid
      */
     async function init({ user, atinfo }) {
         const visualPromptContainer = document.getElementById("attentiontag-visual-prompt-container");
@@ -37,7 +38,7 @@ define(["@attention_tag/attentiontag/dist/attention-tag"], function(atSDK) {
             const at = new atSDK.AttentionTag({ clientId: atinfo.clientid,
                 clientSecret: atinfo.clientsecret,
                 projectId: atinfo.project });
-            
+
             await at.initViewer({
                 viewerEmail: user.email,
                 viewerRefId: user.id,
