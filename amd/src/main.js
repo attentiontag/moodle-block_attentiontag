@@ -24,10 +24,10 @@ define(["@attention_tag/attentiontag/dist/attention-tag"], function(atSDK) {
     'use strict';
     /**
      * init function to initialise the SDK
-     * @param moddle user object
-     * @param atinfo object containing course info, section info, module info, clientid, clientsecret and projectid
+     * @param object user   user info
+     * @param object atinfo containing course info, section info, module info, clientid, clientsecret and projectid
      */
-    async function init({user, atinfo }) {
+    async function init({ user, atinfo }) {
         const visualPromptContainer = document.getElementById("attentiontag-visual-prompt-container");
         const auditoryCueContainer = document.getElementById("attentiontag-auditory-cue-container");
         const chatWidgetContainer = document.getElementById("attentiontag-chat-widget-container");

@@ -27,14 +27,16 @@ namespace block_attentiontag\privacy;
 /**
  * Provider class
  */
-class provider implements 
+class provider implements
     \core_privacy\local\metadata\provider,
     \core_privacy\local\request\core_userlist_provider,
     \core_privacy\local\request\plugin\provider {
 
     /**
-     * @param The metadata collection to add to
-     * @return updated metadata collection
+     * get_metadata function
+     * 
+     * @param  collection $collection the metadata collection to add to
+     * @return collection $collection updated metadata collection
      */
     public static function get_metadata(collection $collection): collection {
         $collection->add_external_location_link(

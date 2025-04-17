@@ -61,14 +61,14 @@ class block_attentiontag extends block_base {
 
         // check if the user is a student
         $roles = get_user_roles($context, $USER->id);
-        $roleshortnames = []; 
+        $roleshortnames = [];
         foreach ($roles as $role) {
             $roleshortnames[] = $role->shortname;
         }
         $isstudent = in_array('student', $roleshortnames); // check if any of the roles of the user is 'student'
 
         $atinfo = new stdClass();
-        if($context->contextlevel == CONTEXT_MODULE && $isstudent) {
+        if ($context->contextlevel == CONTEXT_MODULE && $isstudent) {
             $contentid = $context->instanceid;
             $coursemodule = get_coursemodule_from_id(null, $contentid, 0, false, MUST_EXIST);
 
@@ -76,7 +76,7 @@ class block_attentiontag extends block_base {
             $moduleid = $coursemodule->instance;
             $module = $DB->get_record($moduletype, ['id' => $moduleid]);
             $sectionid = $coursemodule->section;
-            $section = $DB->get_record('course_sections', ['id' => $sectionid]);    
+            $section = $DB->get_record('course_sections', ['id' => $sectionid]);
 
             $atinfo->modulename = $COURSE->fullname;
             $atinfo->moduledescription = $COURSE->summary;
@@ -89,7 +89,7 @@ class block_attentiontag extends block_base {
             $atinfo->contentname = $module->name;
             $atinfo->contentdescription = $module->intro;
             $atinfo->contentref = $moduleid;
-            
+
             $atinfo->clientid = get_config("block_attentiontag", "client_id");
             $atinfo->clientsecret = get_config("block_attentiontag", "client_secret");
             $atinfo->project = get_config("block_attentiontag", "project_id");
@@ -103,7 +103,7 @@ class block_attentiontag extends block_base {
                 // Initialize the floating icon logic (Moodle-specific AMD module).
                 require(['block_attentiontag/main'], function(main) {
 
-                    if(Boolean($isstudent)) { // check if the loggedin user is a student
+                    if (Boolean($isstudent)) { // check if the loggedin user is a student
                         $('body').append($attentiontaghtml);  // Append content.mustache to the document
                         main.init({user: $user, atinfo: $atinfo}); // Initialize the attentiontag SDK.
                     }
