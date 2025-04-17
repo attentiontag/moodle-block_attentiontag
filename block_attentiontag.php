@@ -15,18 +15,12 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- *
+ * Block class
  * @package    block_attentiontag
  * @copyright  2025 AttentionTag Vision Technologies Pvt Ltd
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-
-defined('MOODLE_INTERNAL') || die();
-
-/**
- * Block class
- */
 class block_attentiontag extends block_base {
 
     /**
@@ -59,13 +53,13 @@ class block_attentiontag extends block_base {
         $user = json_encode($USER);
         $context = $this->page->context;
 
-        // check if the user is a student
+        // Check if the user is a student.
         $roles = get_user_roles($context, $USER->id);
         $roleshortnames = [];
         foreach ($roles as $role) {
             $roleshortnames[] = $role->shortname;
         }
-        $isstudent = in_array('student', $roleshortnames); // check if any of the roles of the user is 'student'
+        $isstudent = in_array('student', $roleshortnames); // Check if any of the roles of the user is 'student'.
 
         $atinfo = new stdClass();
         if ($context->contextlevel == CONTEXT_MODULE && $isstudent) {
@@ -103,8 +97,8 @@ class block_attentiontag extends block_base {
                 // Initialize the floating icon logic (Moodle-specific AMD module).
                 require(['block_attentiontag/main'], function(main) {
 
-                    if (Boolean($isstudent)) { // check if the loggedin user is a student
-                        $('body').append($attentiontaghtml);  // Append content.mustache to the document
+                    if (Boolean($isstudent)) { // Check if the loggedin user is a student.
+                        $('body').append($attentiontaghtml);  // Append content.mustache to the document.
                         main.init({user: $user, atinfo: $atinfo}); // Initialize the attentiontag SDK.
                     }
                 });
@@ -123,7 +117,7 @@ JS;
      */
     public function applicable_formats() {
         // Specify the pages where this block can be added.
-        return array('mod' => true, 'course-view' => false, 'site-index' => false);
+        return ['mod' => true, 'course-view' => false, 'site-index' => false];
     }
 
     /**

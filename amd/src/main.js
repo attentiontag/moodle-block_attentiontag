@@ -23,28 +23,28 @@
 define(["@attention_tag/attentiontag/dist/attention-tag"], function(atSDK) {
     'use strict';
     /**
-     * init function to initialise the SDK
+     * Init function to initialise the SDK
      * @param {Object} options          The outer object
      * @param {Object} options.user     user info
-     * @param {Object} optoins.atinfo   containing course info, section info, module info, clientid, clientsecret and projectid
+     * @param {Object} options.atinfo   containing course info, section info, module info, clientid, clientsecret and projectid
      */
-    async function init({ user, atinfo }) {
+    async function init({user, atinfo}) {
         const visualPromptContainer = document.getElementById("attentiontag-visual-prompt-container");
         const auditoryCueContainer = document.getElementById("attentiontag-auditory-cue-container");
         const chatWidgetContainer = document.getElementById("attentiontag-chat-widget-container");
         const floatingIconContainer = document.getElementById("floating-icon-container");
 
         try {
-            const at = new atSDK.AttentionTag({ clientId: atinfo.clientid,
+            const at = new atSDK.AttentionTag({clientId: atinfo.clientid,
                 clientSecret: atinfo.clientsecret,
-                projectId: atinfo.project });
+                projectId: atinfo.project});
 
             await at.initViewer({
                 viewerEmail: user.email,
                 viewerRefId: user.id,
                 viewerName: user.username
             });
-            await at.startContent({ module_name: atinfo.modulename,
+            await at.startContent({module_name: atinfo.modulename,
                 module_ref: atinfo.moduleref,
                 lesson_name: atinfo.lessonname,
                 lesson_ref: atinfo.lessonref,
@@ -54,19 +54,19 @@ define(["@attention_tag/attentiontag/dist/attention-tag"], function(atSDK) {
             // TODO: fix the start and end time for non-meeting type content
             at.startObservation(true, Date.now(), new Date("30 Nov 2025"));
             at.startLiveWorkflows();
-            if(visualPromptContainer) {
+            if (visualPromptContainer) {
                 at.initVisualPrompt(visualPromptContainer);
             }
-            if(auditoryCueContainer) {
+            if (auditoryCueContainer) {
                 at.initAuditoryCue(auditoryCueContainer);
             }
-            if(chatWidgetContainer) {
+            if (chatWidgetContainer) {
                 at.initChatWidget(chatWidgetContainer);
             }
-            if(floatingIconContainer) {
+            if (floatingIconContainer) {
                 at.initDart(floatingIconContainer);
             }
-        } catch(err) {
+        } catch (err) {
             // Handle Error
         }
     }
