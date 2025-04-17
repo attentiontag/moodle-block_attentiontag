@@ -22,9 +22,10 @@
  */
 define(["@attention_tag/attentiontag/dist/attention-tag"], function(atSDK) {
     'use strict';
-
     /**
      * init function to initialise the SDK
+     * @param moddle user object
+     * @param atinfo object containing course info, section info, module info, clientid, clientsecret and projectid
      */
     async function init({user, atinfo }) {
         const visualPromptContainer = document.getElementById("attentiontag-visual-prompt-container");
@@ -33,7 +34,7 @@ define(["@attention_tag/attentiontag/dist/attention-tag"], function(atSDK) {
         const floatingIconContainer = document.getElementById("floating-icon-container");
 
         try {
-            const at = new atSDK.AttentionTag({ clientId: atinfo.clientid, 
+            const at = new atSDK.AttentionTag({ clientId: atinfo.clientid,
                 clientSecret: atinfo.clientsecret,
                 projectId: atinfo.project });
             

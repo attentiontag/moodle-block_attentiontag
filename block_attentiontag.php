@@ -30,14 +30,14 @@ defined('MOODLE_INTERNAL') || die();
 class block_attentiontag extends block_base {
 
     /**
-     * init function 
+     * init function
      */
     public function init() {
         $this->title = get_string('pluginname', 'block_attentiontag');
     }
 
     /**
-     * get_content function 
+     * get_content function
      */
     public function get_content() {
         // Return an empty block content.
@@ -49,7 +49,7 @@ class block_attentiontag extends block_base {
     }
 
     /**
-     * get_required_javascript function 
+     * get_required_javascript function
      */
     public function get_required_javascript() {
         global $OUTPUT, $USER, $COURSE, $DB;
@@ -119,7 +119,7 @@ JS;
     }
 
     /**
-     * applicable_formats function 
+     * applicable_formats function
      */
     public function applicable_formats() {
         // Specify the pages where this block can be added.
@@ -127,9 +127,9 @@ JS;
     }
 
     /**
-     * has_config function 
+     * has_config function
+     * this function is needed to enable settings for our block plugin
      */
-    // this function is needed to enable settings for our block plugin
     public function has_config() {
         return true;
     }

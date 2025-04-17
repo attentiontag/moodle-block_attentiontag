@@ -33,7 +33,8 @@ class provider implements
     \core_privacy\local\request\plugin\provider {
 
     /**
-     * get_metadata function 
+     * @param The metadata collection to add to
+     * @return updated metadata collection
      */
     public static function get_metadata(collection $collection): collection {
         $collection->add_external_location_link(
@@ -54,42 +55,55 @@ class provider implements
     }
 
     /**
-     * get_contexts_for_userid function 
+     * Get the list of contexts that contain user information for the specified user.
+     *
+     * @param   int           $userid       The user to search.
+     * @return  contextlist   $contextlist  The list of contexts used in this plugin.
      */
     public static function get_contexts_for_userid(int $userid): contextlist {
         return new contextlist();
     }
 
     /**
-     * get_users_in_context function 
+     * Get the list of users who have data within a context.
+     *
+     * @param   userlist    $userlist   The userlist containing the list of users who have data in this context/plugin combination.
      */
     public static function get_users_in_context(userlist $userlist): void {
         // No user-specific data stored in Moodle. Contact team@attentiontag.com for requests.
     }
 
     /**
-     * export_user_data function 
+     * Export all user data for the specified user, in the specified contexts, using the supplied exporter instance.
+     *
+     * @param   approved_contextlist    $contextlist    The approved contexts to export information for.
      */
     public static function export_user_data(approved_contextlist $contextlist): void {
         // No user-specific data stored in Moodle. Contact team@attentiontag.com for requests.
     }
 
     /**
-     * delete_data_for_all_users_in_context function 
+     * Delete all users data within a single context.
+     *
+     * @param   approved_userlist       $userlist The approved context and user information to delete information for.
      */
     public static function delete_data_for_all_users_in_context(\context $context): void {
         // No user-specific data stored in Moodle. Contact team@attentiontag.com for requests.
     }
 
     /**
-     * delete_data_for_user function 
+     * Delete all user data for the specified user, in the specified contexts.
+     *
+     * @param   approved_userlist       $userlist The approved context and user information to delete information for.
      */
     public static function delete_data_for_user(approved_contextlist $contextlist): void {
         // No user-specific data stored in Moodle. Contact team@attentiontag.com for requests.
     }
 
     /**
-     * delete_data_for_users function 
+     * Delete multiple users data within a single context.
+     *
+     * @param   approved_userlist       $userlist The approved context and user information to delete information for.
      */
     public static function delete_data_for_users(approved_userlist $userlist): void {
         // No user-specific data stored in Moodle. Contact team@attentiontag.com for requests.

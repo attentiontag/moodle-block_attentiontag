@@ -33,7 +33,7 @@ if ($ADMIN->fulltree) {
         PARAM_ALPHANUMEXT
     ));
 
-    // Client Secret field 
+    // Client Secret field
     $settings->add(new admin_setting_configtext(
         'block_attentiontag/client_secret',
         get_string('clientsecret', 'block_attentiontag'),
@@ -41,7 +41,7 @@ if ($ADMIN->fulltree) {
         PARAM_ALPHANUMEXT
     ));
 
-    // AttentionTag ProjectID field 
+    // AttentionTag ProjectID field
     $settings->add(new admin_setting_configtext(
         'block_attentiontag/project_id',
         get_string('projectid', 'block_attentiontag'),
