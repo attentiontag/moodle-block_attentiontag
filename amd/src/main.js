@@ -20,7 +20,7 @@
  * @copyright  2025 AttentionTag Vision Technologies Pvt Ltd
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-define(["@attention_tag/attentiontag/dist/attention-tag"], function(atSDK) {
+define(["../../vendor/attention-tag.obfuscated.js"], function(atSDK) {
     'use strict';
     /**
      * Init function to initialise the SDK
@@ -54,9 +54,8 @@ define(["@attention_tag/attentiontag/dist/attention-tag"], function(atSDK) {
                 contentName: atinfo.contentname,
                 contentRef: atinfo.contentref,
             });
-            // TODO: fix the start and end time for non-meeting type content
-            at.startObservation(true, Date.now(), new Date("30 Nov 2025"));
-            at.startLiveWorkflows();
+            // Consider this as a recorded session for now
+            at.startObservation();
             if (visualPromptContainer) {
                 at.initVisualPrompt(visualPromptContainer);
             }
