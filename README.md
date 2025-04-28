@@ -30,7 +30,7 @@ Follow these steps to install the AttentionTag plugin on your Moodle instance:
    Ensure that the plugin is installed by checking for an `attentiontag` folder inside `moodle/blocks`.
 
 3. **Install Dependencies**  
-   You have to manually install our AttentionTag SDK.
+   You have to manually install our AttentionTag SDK and other related packages.
    ```sh
    cd /var/www/html/moodle/blocks/attentiontag
    npm install
