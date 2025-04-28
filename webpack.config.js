@@ -29,7 +29,7 @@ module.exports = {
     // Define output settings
     output: {
         path: path.resolve(__dirname, 'amd/build'), // Output directory
-        filename: '[name].js',                      // Output filenames: main.js
+        filename: '[name].min.js',                      // Output filenames: main.min.js
         libraryTarget: 'amd',                       // AMD compatibility for Moodle
     },
     // Exclude Moodle-provided libraries (like jQuery)
@@ -69,6 +69,7 @@ module.exports = {
         },
         extensions: ['.js', '.jsx'],              // Allow importing without extensions
     },
+    devtool: 'source-map',                  // generates the source map file
     // Set mode to production for optimized output
     mode: 'production',
     // Show detailed errors during build process

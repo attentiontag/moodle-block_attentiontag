@@ -34,10 +34,10 @@ function check_attentiontag(environment_results $result) {
     $path = $CFG->dirroot.'/blocks/attentiontag/node_modules/@attention_tag/attentiontag';
 
     if (is_dir($path)) {
-        // Folder exists
+        // Folder exists.
         $result->setStatus(true);
     } else {
-        // Folder does not exist
+        // Folder does not exist.
         $result->setStatus(false);
     }
     return $result;
