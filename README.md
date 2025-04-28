@@ -22,7 +22,7 @@
 Follow these steps to install the AttentionTag plugin on your Moodle instance:
 
 1. **Install the plugin**  
-   Install the plugin directly from the Moodle Plugins directory or upload via ZIP file or instally manuall on the server
+   Install the plugin directly from the Moodle Plugins directory or upload via ZIP file or install manually on the server
    For more detailed instructions, visit [Installing Plugins](https://docs.moodle.org/405/en/Installing_plugins#:~:text=Go%20to%20the%20Moodle%20plugins,Upload%20the%20ZIP%20file)
 
 

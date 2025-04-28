@@ -20,7 +20,7 @@
  * @copyright  2025 AttentionTag Vision Technologies Pvt Ltd
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-define(["../../vendor/attention-tag.obfuscated.js"], function(atSDK) {
+define(["@attention_tag/attentiontag/dist/attention-tag"], function(atSDK) {
     'use strict';
     /**
      * Init function to initialise the SDK
@@ -54,8 +54,8 @@ define(["../../vendor/attention-tag.obfuscated.js"], function(atSDK) {
                 contentName: atinfo.contentname,
                 contentRef: atinfo.contentref,
             });
-            // Consider this as a recorded session for now
-            at.startObservation();
+            // Consider this as a recorded session for now i.e live=false.
+            at.startObservation(false);
             if (visualPromptContainer) {
                 at.initVisualPrompt(visualPromptContainer);
             }

@@ -41,3 +41,6 @@ $string['privacy:metadata:course_info'] = 'The name and summary of the course wh
 $string['privacy:metadata:module_info'] = 'The name and summary of the module within the course.';
 $string['privacy:metadata:section_info'] = 'The name and summary of the section from the Moodle course used to contextualize learning activities.';
 $string['privacy:metadata:externalpurpose'] = 'This data is securely processed and stored externally by AttentionTag to personalize focus interventions and track engagement. This includes webcam snapshots, ML inferences, and limited course/user data.';
+
+// Environment check.
+$string['checkattentiontag'] = 'It has been detected that the AttentionTag npm package has not been installed on your Moodle server. The plugin requires the package to work. Please refer the plugin doc for further details';
