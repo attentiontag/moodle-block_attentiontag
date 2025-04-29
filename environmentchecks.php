@@ -15,34 +15,30 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Define Capabilities
+ * General Plugin Function
  *
  * @package    block_attentiontag
  * @copyright  2025 AttentionTag Vision Technologies Pvt Ltd
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-defined('MOODLE_INTERNAL') || die();
 
-$capabilities = [
+/**
+ * Check if site has AttentionTag npm package installed.
+ *
+ * @param environment_results $result object to update, if relevant.
+ * @return environment_results|null updated results or null.
+ */
+function check_attentiontag(environment_results $result) {
+    global $CFG;
 
-    'block/attentiontag:myaddinstance' => [
-        'captype' => 'write',
-        'contextlevel' => CONTEXT_SYSTEM,
-        'archetypes' => [
-            'user' => CAP_ALLOW,
-        ],
-        'clonepermissionsfrom' => 'moodle/my:manageblocks',
-    ],
+    $path = $CFG->dirroot.'/blocks/attentiontag/node_modules/@attention_tag/attentiontag';
 
-    'block/attentiontag:addinstance' => [
-        'riskbitmask' => RISK_SPAM | RISK_XSS,
-
-        'captype' => 'write',
-        'contextlevel' => CONTEXT_BLOCK,
-        'archetypes' => [
-            'editingteacher' => CAP_ALLOW,
-            'manager' => CAP_ALLOW,
-        ],
-        'clonepermissionsfrom' => 'moodle/site:manageblocks',
-    ],
-];
+    if (is_dir($path)) {
+        // Folder exists.
+        $result->setStatus(true);
+    } else {
+        // Folder does not exist.
+        $result->setStatus(false);
+    }
+    return $result;
+}

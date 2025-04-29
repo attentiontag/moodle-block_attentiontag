@@ -10,24 +10,27 @@
 - **Moodle Documentation:** [Moodle Docs](https://docs.moodle.org/405/en/index.php?title=AttentionTag&action=edit)
 - **Maintainer:** [team@attentiontag.com](mailto:team@attentiontag.com)
 
+## Subscriptions Required
+   - Contact **team@attentiontag.com** to receive your **Client ID**, **Client Secret**, and **Project ID**.
+   - These credentials are required for communication with the AttentionTag backend.
+   - Your npm profile will also be added to the list of allowed users in the attention_tag organization so that you can download the SDK.
+   - Visit [AttentionTag](https://app.attentiontag.com) and create your account in your respective organization.
+   - Navigate to the **Assistants Tab** to configure **Visual Prompts** or **Auditory Cues**(more triggers comming soon).
+
+
 ## Installation
 Follow these steps to install the AttentionTag plugin on your Moodle instance:
 
 1. **Install the plugin**  
-   Install the plugin directly from the Moodle Plugins directory or upload via ZIP file or instally manuall on the server
+   Install the plugin directly from the Moodle Plugins directory or upload via ZIP file or install manually on the server
    For more detailed instructions, visit [Installing Plugins](https://docs.moodle.org/405/en/Installing_plugins#:~:text=Go%20to%20the%20Moodle%20plugins,Upload%20the%20ZIP%20file)
 
 
 2. **Verify Installation**  
    Ensure that the plugin is installed by checking for an `attentiontag` folder inside `moodle/blocks`.
 
-3. **Request Credentials**  
-   - Contact **team@attentiontag.com** to receive your **Client ID**, **Client Secret**, and **Project ID**.
-   - These credentials are required for communication with the AttentionTag backend.
-   - Your npm profile will also be added to the list of allowed users in the attention_tag organization so that you can download the SDK.
-
-4. **Install Dependencies**  
-   You have to manually install our AttentionTag SDK.
+3. **Install Dependencies**  
+   You have to manually install our AttentionTag SDK and other related packages.
    ```sh
    cd /var/www/html/moodle/blocks/attentiontag
    npm install
@@ -36,7 +39,7 @@ Follow these steps to install the AttentionTag plugin on your Moodle instance:
    ```
    If you're using sudo(or any other user) to install the package, use sudo(or the same user) while logging into npm also.
 
-5. **Purge Caches**
+4. **Purge Caches**
    Go to Site Administration > Development > Purge Caches > Purge All Cache
 
 ## Setup & Configuration
@@ -44,11 +47,7 @@ Follow these steps to install the AttentionTag plugin on your Moodle instance:
    - Navigate to **Site Administration > Plugins > Blocks > Manage Blocks > AttentionTag > Settings**.
    - Enter the **Client ID**, **Client Secret**, and **Project ID** provided.
 
-2. **Create an AttentionTag Account**  
-   - Visit [AttentionTag](https://app.attentiontag.com) and create your account in your respective organization.
-   - Navigate to the **Assistants Tab** to configure **Visual Prompts** or **Auditory Cues**(more triggers comming soon).
-
-3. **Enable the Plugin in Moodle**  
+2. **Enable the Plugin in Moodle**  
    - Go to any **course module page** in Moodle.
    - Enable **Edit Mode** (top right corner).
    - Add the **AttentionTag block** to the page.

@@ -1,7 +1,25 @@
-/**
- * @copyright 2025 AttentionTag Vision Technologies Pvt Ltd
- */
+// This file is part of Moodle - http://moodle.org/
+//
+// Moodle is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
+//
+// Moodle is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
+/**
+ * Webpack Configuration 
+ *
+ * @package    block_attentiontag
+ * @copyright  2025 AttentionTag Vision Technologies Pvt Ltd
+ * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ */
 const path = require('path');
 module.exports = {
     // Define entry points for React/npm integration and Moodle AMD module
@@ -11,7 +29,7 @@ module.exports = {
     // Define output settings
     output: {
         path: path.resolve(__dirname, 'amd/build'), // Output directory
-        filename: '[name].js',                      // Output filenames: attentiontag.js, main.js
+        filename: '[name].min.js',                      // Output filenames: main.min.js
         libraryTarget: 'amd',                       // AMD compatibility for Moodle
     },
     // Exclude Moodle-provided libraries (like jQuery)
@@ -46,13 +64,12 @@ module.exports = {
     // Resolve module paths and aliases
     resolve: {
         alias: {
-            // TODO: Make the below work for all core/* - the below line didn't work
-//            'core': '/Users/arvind/attentiontag/code/moodle/moodle/lib/amd/build',
             'core/log': path.resolve(__dirname, '../../lib/amd/build/log.min.js'),
             'core/loglevel': path.resolve(__dirname, '../../lib/amd/build/loglevel.min.js'),
         },
         extensions: ['.js', '.jsx'],              // Allow importing without extensions
     },
+    devtool: 'source-map',                  // generates the source map file
     // Set mode to production for optimized output
     mode: 'production',
     // Show detailed errors during build process
